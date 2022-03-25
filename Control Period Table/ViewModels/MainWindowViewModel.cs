@@ -48,6 +48,10 @@ namespace Control_Period_Table.ViewModels
         public ObservableCollection<Student> StudentList
         {
             get => studentList;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref studentList, value); 
+            }
         }
 
         public List<Student> Students

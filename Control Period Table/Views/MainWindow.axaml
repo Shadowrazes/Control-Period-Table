@@ -3,6 +3,7 @@
         xmlns:vm="using:Control_Period_Table.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:model="using:Control_Period_Table.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Control_Period_Table.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -31,18 +32,36 @@
 		<DataGrid Name="Table"  Items="{Binding StudentList}" Grid.Column="0" Grid.Row="1">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding Fio}"/>
-				<DataGridTemplateColumn Header="ФИО">
+				<DataGridTemplateColumn Header="Математика">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate DataType="model:Student">
-							<TextBlock Background="{Binding Color}" Text="{Binding Fio}"/>
+							<TextBox Background="{Binding MathColor}" Text="{Binding Math}"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
-				<DataGridTextColumn Header="Математика" Binding="{Binding Math}"/>
-				<DataGridTextColumn Header="Визуальное Программирование" Binding="{Binding VisualProgramming}"/>
-				<DataGridTextColumn Header="СиАОД" Binding="{Binding Siaod}"/>
-				<DataGridTextColumn Header="Средний балл" IsReadOnly="False" Binding="{Binding Average}"/>
+				<DataGridTemplateColumn Header="Визуальное Программирование">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate DataType="model:Student">
+							<TextBox Background="{Binding VisualProgrammingColor}" Text="{Binding VisualProgramming}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn Header="СиАОД">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate DataType="model:Student">
+							<TextBox Background="{Binding SiaodColor}" Text="{Binding Siaod}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn Header="Средний балл">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate DataType="model:Student">
+							<TextBlock Background="{Binding AverageColor}" Text="{Binding Average}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
 				<DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding IsSelected}"/>
+				
 			</DataGrid.Columns>
 		</DataGrid>
 

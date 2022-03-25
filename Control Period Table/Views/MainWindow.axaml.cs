@@ -11,6 +11,18 @@ namespace Control_Period_Table.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            this.FindControl<DataGrid>("Table").CellEditEnded += delegate
+            {
+                var context = this.DataContext as MainWindowViewModel;
+                ObservableCollection<Student> studentList = context.StudentList;
+
+                if (context != null)
+                {
+                    context.StudentList = new ObservableCollection<Student>();
+                    context.StudentList = studentList;
+                }
+            };
         }
     }
 }
