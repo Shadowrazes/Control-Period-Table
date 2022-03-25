@@ -1,0 +1,47 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Control_Period_Table.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Control_Period_Table.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Control_Period_Table">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Window.Styles>
+		<StyleInclude Source="/Styles/Style.axaml"/>
+	</Window.Styles>
+
+	<Grid Name="MainGrid" ColumnDefinitions="*" RowDefinitions="100, *, 50">
+		<DockPanel Grid.Column="0" Grid.Row="0">
+			<Menu DockPanel.Dock="Top" VerticalAlignment="Top">
+				<MenuItem Header="File">
+					<MenuItem Header="Open"/>
+					<MenuItem Header="Load"/>
+					<MenuItem Header="Exit"/>
+				</MenuItem>
+				<MenuItem Header="About"/>
+			</Menu>
+		</DockPanel>
+
+		<DataGrid Name="Table" Items="{Binding StudentList}" Grid.Column="0" Grid.Row="1">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding Fio}"/>
+				<DataGridTextColumn Header="Математика" Binding="{Binding Math}"/>
+				<DataGridTextColumn Header="Визуальное Программирование" Binding="{Binding VisualProgramming}"/>
+				<DataGridTextColumn Header="СиАОД" Binding="{Binding Siaod}"/>
+				<DataGridTextColumn Header="Средний балл" IsReadOnly="False" Binding="{Binding Average}"/>
+				<DataGridCheckBoxColumn Header="Выбрать"/>
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<Grid Name="GridButtons" ColumnDefinitions="*, *" RowDefinitions="50" Grid.Column="0" Grid.Row="2">
+			<Button Classes="gridBtn" Command="{Binding Add}" Content="Добавить" Grid.Column="0"/>
+			<Button Classes="gridBtn" Content="Удалить выбранные" Grid.Column="1"/>
+		</Grid>
+	</Grid>
+</Window>
