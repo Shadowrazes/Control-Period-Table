@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Avalonia.Media;
 
 namespace Control_Period_Table.Models
 {
-    public class Student
+    public class Student : INotifyPropertyChanged
     {
         string math = "0";
         string visualProgramming = "0";
@@ -19,6 +22,18 @@ namespace Control_Period_Table.Models
             Math = _Math;
             VisualProgramming = _VisualProgramming;
             Siaod = _Siaod;
+            Color = Brushes.AliceBlue;
+        }
+
+        public ISolidColorBrush Color { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool IsSelected { get; set; }
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void RefreshAverage()
@@ -60,6 +75,7 @@ namespace Control_Period_Table.Models
             set
             {
                 average = value;
+                NotifyPropertyChanged();
             } 
         }
     }

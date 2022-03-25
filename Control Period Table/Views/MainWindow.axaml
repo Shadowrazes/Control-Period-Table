@@ -28,20 +28,27 @@
 			</Menu>
 		</DockPanel>
 
-		<DataGrid Name="Table" Items="{Binding StudentList}" Grid.Column="0" Grid.Row="1">
+		<DataGrid Name="Table"  Items="{Binding StudentList}" Grid.Column="0" Grid.Row="1">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding Fio}"/>
+				<DataGridTemplateColumn Header="ФИО">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate DataType="model:Student">
+							<TextBlock Background="{Binding Color}" Text="{Binding Fio}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
 				<DataGridTextColumn Header="Математика" Binding="{Binding Math}"/>
 				<DataGridTextColumn Header="Визуальное Программирование" Binding="{Binding VisualProgramming}"/>
 				<DataGridTextColumn Header="СиАОД" Binding="{Binding Siaod}"/>
 				<DataGridTextColumn Header="Средний балл" IsReadOnly="False" Binding="{Binding Average}"/>
-				<DataGridCheckBoxColumn Header="Выбрать"/>
+				<DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding IsSelected}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 
 		<Grid Name="GridButtons" ColumnDefinitions="*, *" RowDefinitions="50" Grid.Column="0" Grid.Row="2">
 			<Button Classes="gridBtn" Command="{Binding Add}" Content="Добавить" Grid.Column="0"/>
-			<Button Classes="gridBtn" Content="Удалить выбранные" Grid.Column="1"/>
+			<Button Classes="gridBtn" Command="{Binding Remove}" Content="Удалить выбранные" Grid.Column="1"/>
 		</Grid>
 	</Grid>
 </Window>

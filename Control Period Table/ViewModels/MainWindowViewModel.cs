@@ -19,8 +19,8 @@ namespace Control_Period_Table.ViewModels
         public MainWindowViewModel()
         {
             studentList = new ObservableCollection<Student>(students);
-            //Test = ReactiveCommand.Create<Student, ObservableCollection<Student>>((note) => StudentList = new ObservableCollection<Student>(new List<Student>() { note }));
             Add = ReactiveCommand.Create(() => add());
+            RemoveSelected = ReactiveCommand.Create(() => Remove());
         }
 
         public void add()
@@ -28,16 +28,26 @@ namespace Control_Period_Table.ViewModels
             studentList.Add(new Student());
         }
 
+        public void Remove()
+        {
+            List<Student> removeList = new List<Student>();
+            foreach (var item in StudentList)
+            {
+                if(item.IsSelected)
+                    removeList.Add(item);
+            }
+            foreach (var item in removeList)
+            {
+                StudentList.Remove(item);
+            }
+        }
 
-        //public ReactiveCommand<Student, ObservableCollection<Student>> Test { get; }
+
         public ReactiveCommand<Unit, Unit> Add { get; }
+        public ReactiveCommand<Unit, Unit> RemoveSelected { get; }
         public ObservableCollection<Student> StudentList
         {
             get => studentList;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref studentList, value);
-            }
         }
 
         public List<Student> Students
