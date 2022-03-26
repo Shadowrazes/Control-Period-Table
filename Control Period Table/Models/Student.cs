@@ -21,7 +21,7 @@ namespace Control_Period_Table.Models
         string siaodColor;
         string averageColor;
 
-        public Student(string _Fio = "Я Саня Битс", string _Math = "0,5", string _VisualProgramming = "0,5", string _Siaod = "1")
+        public Student(string _Fio = "Я Саня Битс", string _Math = "0", string _VisualProgramming = "0", string _Siaod = "0")
         {
             Fio = _Fio;
             Math = _Math;
@@ -33,22 +33,38 @@ namespace Control_Period_Table.Models
         public string MathColor 
         { 
             get => mathColor; 
-            set => mathColor = value; 
+            set
+            {
+                mathColor = value;
+                NotifyPropertyChanged();
+            }
         }
         public string VisualProgrammingColor
         {
             get => visualProgrammingColor;
-            set => visualProgrammingColor = value;
+            set
+            {
+                visualProgrammingColor = value;
+                NotifyPropertyChanged();
+            }
         }
         public string SiaodColor
         {
             get => siaodColor;
-            set => siaodColor = value;
+            set
+            {
+                siaodColor = value;
+                NotifyPropertyChanged();
+            }
         }
         public string AverageColor
         {
             get => averageColor;
-            set => averageColor = value;
+            set
+            {
+                averageColor = value;
+                NotifyPropertyChanged();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -63,20 +79,88 @@ namespace Control_Period_Table.Models
 
         private void RefreshAverage()
         {
-            if(math != "" && visualProgramming != "" && siaod != "")
+            try
+            {
                 Average = (Convert.ToDouble(math) + Convert.ToDouble(visualProgramming) + Convert.ToDouble(siaod)) / 3.0;
+            }
+            catch
+            {
+                Average = 0;
+            }
         }
 
         private void SetCScolor(ref string color, string discipline)
         {
-            if (discipline != "")
+            try
             {
-                if (Convert.ToDouble(discipline) == 0)
-                    color = "OrangeRed";
-                if (Convert.ToDouble(discipline) == 1)
-                    color = "Yellow";
-                if (Convert.ToDouble(discipline) == 2)
-                    color = "LightGreen";
+                if (discipline == "math")
+                {
+                    if (Convert.ToDouble(math) == 0)
+                        MathColor = "OrangeRed";
+                    else if (Convert.ToDouble(math) == 1)
+                        MathColor = "Yellow";
+                    else if (Convert.ToDouble(math) == 2)
+                        MathColor = "LightGreen";
+                    else
+                    {
+                        MathColor = "White";
+                        Math = "#ERROR";
+                    }
+                }
+                else if (discipline == "visual")
+                {
+                    if (Convert.ToDouble(visualProgramming) == 0)
+                        VisualProgrammingColor = "OrangeRed";
+                    else if (Convert.ToDouble(visualProgramming) == 1)
+                        VisualProgrammingColor = "Yellow";
+                    else if (Convert.ToDouble(visualProgramming) == 2)
+                        VisualProgrammingColor = "LightGreen";
+                    else
+                    {
+                        VisualProgrammingColor = "White";
+                        VisualProgramming = "#ERROR";
+                    }
+                }
+                else if (discipline == "siaod")
+                {
+                    if (Convert.ToDouble(siaod) == 0)
+                        SiaodColor = "OrangeRed";
+                    else if (Convert.ToDouble(siaod) == 1)
+                        SiaodColor = "Yellow";
+                    else if (Convert.ToDouble(siaod) == 2)
+                        SiaodColor = "LightGreen";
+                    else
+                    {
+                        SiaodColor = "White";
+                        Siaod = "#ERROR";
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch
+            {
+                if (discipline == "math")
+                {
+                    MathColor = "White";
+                    Math = "#ERROR";
+                }
+                else if (discipline == "visual")
+                {
+                    VisualProgrammingColor = "White";
+                    VisualProgramming = "#ERROR";
+                }
+                else if (discipline == "siaod")
+                {
+                    SiaodColor = "White";
+                    Siaod = "#ERROR";
+                }
+                else
+                {
+
+                }
             }
         }
 
@@ -87,8 +171,12 @@ namespace Control_Period_Table.Models
             set
             {
                 math = value;
-                SetCScolor(ref mathColor, Math);
+                if (math != "" && math != "#ERROR")
+                {
+                    SetCScolor(ref mathColor, "math");
+                }
                 RefreshAverage();
+                NotifyPropertyChanged();
             }
         }
         public string VisualProgramming
@@ -97,8 +185,12 @@ namespace Control_Period_Table.Models
             set
             {
                 visualProgramming = value;
-                SetCScolor(ref visualProgrammingColor, VisualProgramming);
+                if (visualProgramming != "" && visualProgramming != "#ERROR")
+                {
+                    SetCScolor(ref visualProgrammingColor, "visual");
+                }
                 RefreshAverage();
+                NotifyPropertyChanged();
             }
         }
         public string Siaod
@@ -107,8 +199,12 @@ namespace Control_Period_Table.Models
             set
             {
                 siaod = value;
-                SetCScolor(ref siaodColor, Siaod);
+                if (siaod != ""  && siaod != "#ERROR")
+                {
+                    SetCScolor(ref siaodColor, "siaod");
+                }
                 RefreshAverage();
+                NotifyPropertyChanged();
             }
         }
         public double Average 

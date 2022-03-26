@@ -17,7 +17,7 @@
 		<StyleInclude Source="/Styles/Style.axaml"/>
 	</Window.Styles>
 
-	<Grid Name="MainGrid" ColumnDefinitions="*" RowDefinitions="100, *, 50">
+	<Grid Name="MainGrid" ColumnDefinitions="*" RowDefinitions="100, *, 30, 50">
 		<DockPanel Grid.Column="0" Grid.Row="0">
 			<Menu DockPanel.Dock="Top" VerticalAlignment="Top">
 				<MenuItem Header="File">
@@ -29,43 +29,48 @@
 			</Menu>
 		</DockPanel>
 
-		<DataGrid Name="Table"  Items="{Binding StudentList}" Grid.Column="0" Grid.Row="1">
+		<DataGrid Name="Table"  Items="{Binding StudentList}" Grid.Column="0" Grid.Row="1" CanUserReorderColumns="False">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding Fio}"/>
-				<DataGridTemplateColumn Header="Математика">
+				<DataGridTemplateColumn Header="Математика" Width="*">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate DataType="model:Student">
 							<TextBox Background="{Binding MathColor}" Text="{Binding Math}"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
-				<DataGridTemplateColumn Header="Визуальное Программирование">
+				<DataGridTemplateColumn Header="Визуальное Программирование" Width="*">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate DataType="model:Student">
 							<TextBox Background="{Binding VisualProgrammingColor}" Text="{Binding VisualProgramming}"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
-				<DataGridTemplateColumn Header="СиАОД">
+				<DataGridTemplateColumn Header="СиАОД" Width="*">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate DataType="model:Student">
 							<TextBox Background="{Binding SiaodColor}" Text="{Binding Siaod}"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
-				<DataGridTemplateColumn Header="Средний балл">
+				<DataGridTemplateColumn Header="Средний балл" Width="*">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate DataType="model:Student">
 							<TextBlock Background="{Binding AverageColor}" Text="{Binding Average}"/>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
-				<DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding IsSelected}"/>
-				
+				<DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding IsSelected}" Width="*"/>	
 			</DataGrid.Columns>
 		</DataGrid>
 
-		<Grid Name="GridButtons" ColumnDefinitions="*, *" RowDefinitions="50" Grid.Column="0" Grid.Row="2">
+		<Grid ShowGridLines="False" ColumnDefinitions="*, *, *, *, *, *" RowDefinitions="*" Grid.Column="0" Grid.Row="2">
+			<TextBlock Grid.Column="1" Text="ok"/>
+			<TextBlock Grid.Column="2" Text="ok"/>
+			<TextBlock Grid.Column="3" Text="ok"/>
+		</Grid>
+
+		<Grid Name="GridButtons" ColumnDefinitions="*, *" RowDefinitions="50" Grid.Column="0" Grid.Row="3">
 			<Button Classes="gridBtn" Command="{Binding Add}" Content="Добавить" Grid.Column="0"/>
 			<Button Classes="gridBtn" Command="{Binding Remove}" Content="Удалить выбранные" Grid.Column="1"/>
 		</Grid>

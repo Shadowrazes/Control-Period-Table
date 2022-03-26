@@ -12,7 +12,7 @@ namespace Control_Period_Table.Views
         {
             InitializeComponent();
 
-            this.FindControl<DataGrid>("Table").CellEditEnded += delegate
+            this.FindControl<DataGrid>("Table").CurrentCellChanged += delegate
             {
                 var context = this.DataContext as MainWindowViewModel;
                 ObservableCollection<Student> studentList = context.StudentList;
