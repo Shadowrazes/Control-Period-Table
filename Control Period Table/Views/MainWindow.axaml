@@ -65,7 +65,7 @@
 		</DataGrid>
 
 		<Grid ShowGridLines="False" ColumnDefinitions="*, *, *, *, *, *" RowDefinitions="*" Grid.Column="0" Grid.Row="2">
-			<TextBlock Grid.Column="1" Text="ok"/>
+			<TextBlock Grid.Column="1" Text="{Binding StudentList[0].Fio}"/>
 			<TextBlock Grid.Column="2" Text="ok"/>
 			<TextBlock Grid.Column="3" Text="ok"/>
 		</Grid>

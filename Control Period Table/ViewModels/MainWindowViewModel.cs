@@ -13,12 +13,15 @@ namespace Control_Period_Table.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         List<Student> students = new List<Student>() { new Student(), new Student() };
+        List<ItemAverageScore> itemsAverage = new List<ItemAverageScore>() { new ItemAverageScore(), new ItemAverageScore(), new ItemAverageScore() };
 
         ObservableCollection<Student> studentList;
+        ObservableCollection<ItemAverageScore> itemsAverageList;
 
         public MainWindowViewModel()
         {
             studentList = new ObservableCollection<Student>(students);
+            itemsAverageList = new ObservableCollection<ItemAverageScore>(itemsAverage);
             Add = ReactiveCommand.Create(() => add());
             RemoveSelected = ReactiveCommand.Create(() => Remove());
         }
@@ -42,6 +45,13 @@ namespace Control_Period_Table.ViewModels
             }
         }
 
+        public void RefreshAverageList()
+        {
+            for(int i = 0; i < studentList.Count; i++)
+            {
+
+            }
+        }
 
         public ReactiveCommand<Unit, Unit> Add { get; }
         public ReactiveCommand<Unit, Unit> RemoveSelected { get; }
@@ -53,6 +63,8 @@ namespace Control_Period_Table.ViewModels
                 this.RaiseAndSetIfChanged(ref studentList, value); 
             }
         }
+
+        public ObservableCollection<ItemAverageScore> ItemsAverageList { get; }
 
         public List<Student> Students
         {
