@@ -46,8 +46,9 @@ namespace Control_Period_Table.ViewModels
             }
             foreach (var item in removeList)
             {
-                StudentList.Remove(item);
+                students.Remove(item);
             }
+            StudentList = new ObservableCollection<Student>(students);
             RefreshAverageList();
         }
 

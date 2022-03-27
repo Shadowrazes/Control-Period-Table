@@ -59,10 +59,12 @@ namespace Control_Period_Table.Views
 
             if (context != null)
             {
+                TextBox txt = sender as TextBox;
+                string tmp = txt.Text;
+                txt.Text = "";
+                txt.Text = tmp;
                 context.RefreshAverageList();
                 context.RefreshStudentAverage();
-                //context.StudentList = new ObservableCollection<Student>();
-                //context.StudentList = studentList;
             }
         }
 
