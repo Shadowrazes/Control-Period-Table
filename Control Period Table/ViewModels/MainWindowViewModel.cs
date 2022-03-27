@@ -12,7 +12,8 @@ namespace Control_Period_Table.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        List<Student> students = new List<Student>() { new Student(), new Student() };
+        List<string> items;
+        List<Student> students;
         List<ItemAverageScore> itemsAverage = new List<ItemAverageScore>() { new ItemAverageScore(), new ItemAverageScore(), new ItemAverageScore() };
 
         ObservableCollection<Student> studentList;
@@ -20,6 +21,8 @@ namespace Control_Period_Table.ViewModels
 
         public MainWindowViewModel()
         {
+            items = new List<string>() { "Математика", "Визуальное программирование", "СиАОД" };
+            students = new List<Student>() { };
             studentList = new ObservableCollection<Student>(students);
             itemsAverageList = new ObservableCollection<ItemAverageScore>(itemsAverage);
             Add = ReactiveCommand.Create(() => add());
@@ -28,7 +31,9 @@ namespace Control_Period_Table.ViewModels
 
         public void add()
         {
-            studentList.Add(new Student());
+            students.Add(new Student(items));
+            StudentList = new ObservableCollection<Student>(students);
+            RefreshAverageList();
         }
 
         public void Remove()
@@ -43,13 +48,41 @@ namespace Control_Period_Table.ViewModels
             {
                 StudentList.Remove(item);
             }
+            RefreshAverageList();
         }
 
         public void RefreshAverageList()
         {
-            for(int i = 0; i < studentList.Count; i++)
+            try
             {
+                foreach(ItemAverageScore average in itemsAverage)
+                {
+                    average.Score = "0";
+                }
 
+                foreach (Student student in studentList)
+                {
+                    for (int i = 0; i < student.ItemList.Count(); i++)
+                    {
+                        itemsAverageList[i].Score = Convert.ToString(Convert.ToDouble(itemsAverageList[i].Score) 
+                            + Convert.ToDouble(student.ItemList[i].Score) / (double)studentList.Count());
+                    }
+                }
+            }
+            catch
+            {
+                //foreach (ItemAverageScore average in itemsAverage)
+                //{
+                //    average.Score = 0;
+                //}
+            }
+        }
+
+        public void RefreshStudentAverage()
+        {
+            foreach (var student in studentList)
+            {
+                student.RefreshAverage();
             }
         }
 
@@ -64,11 +97,27 @@ namespace Control_Period_Table.ViewModels
             }
         }
 
-        public ObservableCollection<ItemAverageScore> ItemsAverageList { get; }
+        public ObservableCollection<ItemAverageScore> ItemsAverageList 
+        {
+            get => itemsAverageList;
+        }
 
         public List<Student> Students
         {
             get => students;
+        }
+
+        public void SaveFile(string path)
+        {
+            ProcessingFile.WriteFile(path, students);
+        }
+
+        public void LoadFile(string path)
+        {
+            students = ProcessingFile.ReadFile(path, items.Count());
+            StudentList = new ObservableCollection<Student>(students);
+            RefreshAverageList();
+            RefreshStudentAverage();
         }
     }
 }

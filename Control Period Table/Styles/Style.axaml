@@ -6,7 +6,7 @@
 		</Border>
 	</Design.PreviewWith>
 
-	<Style Selector="Button.gridBtn, TextBox.gridTextBox">
+	<Style Selector="Button.gridBtn">
 		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		<Setter Property="FontSize" Value="20"/>
@@ -19,5 +19,15 @@
 
 	<Style Selector="Button.gridBtn:pointerover /template/ ContentPresenter">
 		<Setter Property="Background" Value="Orange"/>
+	</Style>
+
+	<Style Selector="TextBox.gridTextBox">
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="FontSize" Value="20"/>
+	</Style>
+
+	<Style Selector="TextBox.gridTextBlock">
+		<Setter Property="Focusable" Value="False"/>
 	</Style>
 </Styles>
