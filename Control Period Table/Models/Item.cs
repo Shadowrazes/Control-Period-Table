@@ -45,7 +45,7 @@ namespace Control_Period_Table.Models
             }
             catch
             {
-                color = "White";
+                Color = "White";
                 score = "#ERROR";
             }
         }
